@@ -48,7 +48,6 @@ def grid_from_pic(pic):
     '''
     returns a 2D matrix (grid representation) from a multiline ascii string
     '''
-
     grid = [[cell for cell in row] for row in pic.split('\n')][1:-1]
     return grid
 
@@ -74,10 +73,9 @@ class Maze(object):
         for row in self.grid:
             print()
             for cell in row:
-                if path:
-                    if cell in path:
-                        print(colored('.', 'red'), end='')
-                        continue
+                if path and cell in path:
+                    print(colored('.', 'red'), end='')
+                    continue
                 cell.print_char()
         print()
         print()
@@ -96,10 +94,10 @@ class Cell(object):
     }
 
     directions = [
-        (0, -1), #up
-        (0,  1), #down
-        (-1, 0), #left
-        (1,  0), #right
+        ( 0, -1), #up
+        ( 0,  1), #down
+        (-1,  0), #left
+        ( 1,  0), #right
     ]
 
     def __init__(self, maze, x, y, char=''):
@@ -123,7 +121,6 @@ class Cell(object):
         branches = [ n for n in self.neighbors \
                         if n.is_open \
                         and not n in path ]
-        #print('Branches:', branches)
 
         for i, b in enumerate(branches):
             #print('Branch', i, b)
@@ -137,7 +134,6 @@ class Cell(object):
         '''
         returns True is cell is not a wall
         '''
-
         return not self.is_wall
 
     @property
@@ -146,7 +142,6 @@ class Cell(object):
         returns a list of (x, y) tuples for each cell adjacent up, down, left, and
         right
         '''
-
         cells = []
 
         for direction in Cell.directions:
@@ -166,7 +161,6 @@ def run():
     consumes an ASCII grid representation and creates a 2D matrix.
     finds the start (sp) and end (ep) points and finds shortest path.
     '''
-
     grid = grid_from_pic(large_maze)
     maze = Maze(grid)
 
