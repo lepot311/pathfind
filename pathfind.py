@@ -48,8 +48,7 @@ def grid_from_pic(pic):
     '''
     returns a 2D matrix (grid representation) from a multiline ascii string
     '''
-    grid = [[cell for cell in row] for row in pic.split('\n')][1:-1]
-    return grid
+    return [[cell for cell in row] for row in pic.split('\n')][1:-1]
 
 
 class Maze(object):
@@ -78,7 +77,6 @@ class Maze(object):
                     continue
                 cell.print_char()
         print()
-        print()
 
     def cell_at(self, x, y):
         return self.grid[y][x]
@@ -105,7 +103,6 @@ class Cell(object):
         self.x = x
         self.y = y
         self.char = char
-
         self.is_wall = self.char is '|'
 
     def __repr__(self):
@@ -122,8 +119,7 @@ class Cell(object):
                         if n.is_open \
                         and not n in path ]
 
-        for i, b in enumerate(branches):
-            #print('Branch', i, b)
+        for b in branches:
             if b is self.maze.ending_point:
                 self.maze.solutions.append(path + [self])
             else:
@@ -131,9 +127,6 @@ class Cell(object):
 
     @property
     def is_open(self):
-        '''
-        returns True is cell is not a wall
-        '''
         return not self.is_wall
 
     @property
@@ -143,7 +136,6 @@ class Cell(object):
         right
         '''
         cells = []
-
         for direction in Cell.directions:
             x = self.x + direction[0]
             y = self.y + direction[1]
@@ -152,7 +144,6 @@ class Cell(object):
                 cells.append(self.maze.cell_at(x, y))
             except IndexError:
                 pass
-
         return cells
 
 
@@ -163,19 +154,15 @@ def run():
     '''
     grid = grid_from_pic(large_maze)
     maze = Maze(grid)
-
     maze.print_grid()
-
     maze.solve()
     solutions = maze.solutions
     shortest = min(solutions, key=len)
 
-    print('Found %s solutions.' % len(solutions))
-    print()
+    print('Found %s solutions.\n' % len(solutions))
     print('Shortest path (%s steps):' % len(shortest))
     print(shortest)
     maze.print_grid(path=shortest)
-
 
 if __name__ == "__main__":
     run()
