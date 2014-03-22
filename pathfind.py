@@ -1,7 +1,6 @@
 import pprint
 import sys
 
-import ipdb
 from termcolor import colored
 
 small_maze = """
@@ -47,6 +46,8 @@ large_maze = """
 def grid_from_pic(pic):
     '''
     returns a 2D matrix (grid representation) from a multiline ascii string
+
+    strips the first and last lines for better ascii art representation
     '''
     return [[cell for cell in row] for row in pic.split('\n')][1:-1]
 
