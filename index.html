@@ -1,0 +1,50 @@
+<html>
+<head>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.js"></script>
+    <script src="pathfind.js"></script>
+
+    <style>
+      .cell {
+        float: left;
+        width: 1em;
+        height: 1em;
+        background-color: #ccc;
+      }
+      .cell.wall {
+        background-color: black;
+      }
+      .cell.start {
+        background-color: green;
+      }
+      .cell.end {
+        background-color: red;
+      }
+      .cell.path {
+        background-color: blue;
+      }
+      .row {
+        clear: left;
+      }
+    </style>
+</head>
+<body ng-app="PathfinderApp">
+    <div ng-controller="MazeCtrl" id="maze">
+        <div>width: {{ maze.grid[0].length }}</div>
+        <div>height: {{ maze.length }}</div>
+        <div ng-repeat="row in maze.grid"
+             class="row">
+          <div ng-repeat="cell in row"
+               ng-class="{ 'path': maze.solution[$parent.$index][$index].type == 'path' }"
+               class="cell {{ cell.type }}">
+          </div>
+        </div>
+        <button ng-click="submit(maze)">Solve</button>
+        <ul>
+          <li ng-repeat="s in maze.solutions"
+              ng-click="maze.solution = s">
+              Path #{{ $index + 1 }} ( {{ s.length }} steps )</li>
+        </ul>
+    </div>
+</body>
+</html>
