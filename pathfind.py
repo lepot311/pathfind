@@ -168,7 +168,7 @@ def run():
         print()
     shortest = min(solutions, key=len)
 
-    print('Found %s solutions.\n' %     len(solutions))
+    print('Found %s solutions.\n'     % len(solutions))
     print('Shortest path (%s steps):' % len(shortest))
     maze.print_grid(shortest)
 
