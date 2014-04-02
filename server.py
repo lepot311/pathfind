@@ -1,3 +1,4 @@
+import ipdb
 import json
 from flask import Flask, request
 import pathfind
@@ -5,24 +6,69 @@ import pathfind
 app = Flask(__name__)
 
 
+class ServerMaze(pathfind.Maze):
+    type_map = {
+        'space': ' ',
+        'wall':  '|',
+        'start': 'S',
+        'end':   'E',
+    }
 
-@app.route('/solver')
+    def __init__(self, grid=None):
+        # TODO: we can improve this
+        if grid:
+            super().__init__(pic=self.json_to_ascii(grid))
+        else:
+            super().__init__()
+
+    def json_to_ascii(self, grid):
+        text = [[ ServerMaze.type_map[cell['type']] for cell in row ]
+                                                    for row in grid ]
+        output = ''
+        for row in text:
+            output += ''.join(row) + '\n'
+
+        return '\n'+output
+
+    @property
+    def as_json(self):
+        result = {}
+        result['grid'] = [[ { 'type': cell._type } for cell in row ]
+                                                   for row in self.grid ]
+        solutions = []
+
+        # TODO: probably time to start thinking about making grid and solution classes
+        for solution in self.solutions:
+            grid = []
+            for row in self.grid:
+                r = []
+                for cell in row:
+                    if cell in solution:
+                        r.append({ 'type': 'path' })
+                    else:
+                        r.append({ 'type': cell._type })
+                grid.append(r)
+            solutions.append(grid)
+
+        result['solutions'] = solutions
+
+        return json.dumps(result)
+
+
+@app.route('/maze')
 def index():
-    maze = pathfind.Maze()
-    return json.dumps(maze.as_dict)
+    maze = ServerMaze()
+    return maze.as_json
 
 
-@app.route('/solver/solve', methods=['POST'])
+@app.route('/maze/solve', methods=['POST'])
 def solve():
     grid = json.loads( request.data.decode() )['grid']
 
-    maze = pathfind.Maze()
-
-    maze.grid_from_json(grid)
-
+    maze = ServerMaze(grid=grid)
     maze.solve()
 
-    return json.dumps(maze.as_dict['solutions'])
+    return maze.as_json
 
 
 

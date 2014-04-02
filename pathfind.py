@@ -44,22 +44,21 @@ class Maze(object):
     ascii_map = {
         ' ': 'space',
         '|': 'wall',
-        'S': 'is_start',
-        'E': 'is_end',
+        'S': 'start',
+        'E': 'end',
     }
 
-    def __init__(self, grid=None):
+    def __init__(self, pic=small_maze):
         self.solutions = []
 
-        if not grid:
-            grid = self.grid_from_ascii()
+        grid = self.grid_from_ascii(pic=pic)
 
         # TODO: do something smarter..
         self.grid = [[ Cell(self, (x, y), char)
                 for x, char in enumerate(row)  ]
                 for y, row  in enumerate(grid) ]
 
-    def grid_from_ascii(self, pic=small_maze):
+    def grid_from_ascii(self, pic):
         '''
         Returns a 2D matrix (grid representation) from a multiline ascii string.
         Strips the first and last lines for better ascii art representation.
@@ -82,7 +81,7 @@ class Maze(object):
         return self.grid[y][x]
 
     def solve(self):
-        self.is_start.pathfind([])
+        self.start.pathfind([])
 
 
 class Cell(object):
@@ -105,13 +104,15 @@ class Cell(object):
 
         self.x, self.y = self.coord
 
-        # TODO: re-use the class' mapping
-        self.is_start = self.char is 'S'
-        self.is_end =   self.char is 'E'
-        self.wall =     self.char is '|'
+        self._type = Maze.ascii_map[self.char]
 
-        if self.is_start:
-            self.maze.is_start = self
+        # TODO: re-use the class' mapping
+        self.start = self.char is 'S'
+        self.end =   self.char is 'E'
+        self.wall =  self.char is '|'
+
+        if self.start:
+            self.maze.start = self
 
     def __repr__(self):
         return "Cell (%s, %s)" % self.coord
@@ -122,7 +123,7 @@ class Cell(object):
 
     def pathfind(self, path):
         for b in self.choices(path):
-            if b.is_end:
+            if b.end:
                 self.maze.solutions.append(path + [self])
             else:
                 b.pathfind(path + [self])

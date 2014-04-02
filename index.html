@@ -26,6 +26,9 @@
       .row {
         clear: left;
       }
+      li {
+        outline: 1px solid #333;
+      }
     </style>
 </head>
 <body ng-app="PathfinderApp">
@@ -35,15 +38,14 @@
         <div ng-repeat="row in maze.grid"
              class="row">
           <div ng-repeat="cell in row"
-               ng-class="{ 'path': maze.solution[$parent.$index][$index].type == 'path' }"
                class="cell {{ cell.type }}">
           </div>
         </div>
         <button ng-click="submit(maze)">Solve</button>
         <ul>
           <li ng-repeat="s in maze.solutions"
-              ng-click="maze.solution = s">
-              Path #{{ $index + 1 }} ( {{ s.length }} steps )</li>
+              ng-mouseover="maze.grid = s">
+              Path #{{ $index + 1 }} ( {{ s.steps }} steps )</li>
         </ul>
     </div>
 </body>
