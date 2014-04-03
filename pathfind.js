@@ -1,6 +1,7 @@
 angular.module('PathfinderApp', [])
   .controller('MazeCtrl', function($scope, $http) {
     $scope.painting = false;
+    $scope.original = {};
 
     $http.get('/maze').success(function(maze) {
       $scope.maze = maze;
@@ -9,6 +10,7 @@ angular.module('PathfinderApp', [])
     $scope.submit = function(maze) {
       $http.post('/maze/solve', maze)
         .success(function(maze) {
+          $scope.original = _($scope.maze).clone();
 
           _(maze.solutions).each(function(s) {
             s.steps = $scope.steps_in_solution(s).length

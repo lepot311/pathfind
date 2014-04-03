@@ -48,7 +48,8 @@
         <button ng-click="submit(maze)">Solve</button>
         <ul>
           <li ng-repeat="s in maze.solutions"
-              ng-mouseover="maze.grid = s">
+              ng-mouseover="maze.grid = s"
+              ng-mouseleave="maze.grid = original.grid">
               Path #{{ $index + 1 }} ( {{ s.steps }} steps )</li>
         </ul>
     </div>
