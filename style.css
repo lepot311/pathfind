@@ -1,0 +1,100 @@
+body {
+  background-color: #181238;
+  font-family: "Helvetica", sans-serif; }
+
+.left {
+  float: left; }
+
+.right {
+  float: right; }
+
+.cell {
+  float: left;
+  background-color: #cad6f0; }
+  .cell.wall {
+    background-color: #152349; }
+  .cell.start {
+    background-color: #11ce73; }
+  .cell.end {
+    background-color: #e03636; }
+  .cell.path {
+    background-color: #ffbb2a;
+    box-shadow: 0 0 20px #ffbb2a; }
+
+.row {
+  clear: left;
+  float: left; }
+
+.panel {
+  color: #cad6f0;
+  position: absolute;
+  top: 0;
+  background-color: #645f81;
+  height: 100%;
+  box-shadow: 0 0 20px #d4c8da; }
+  .panel.left {
+    left: 0;
+    width: 0;
+    padding: 0 1em;
+    border-right: 2px solid #bc9fd8; }
+    .panel.left:hover {
+      width: auto; }
+      .panel.left:hover .controls {
+        display: block; }
+      .panel.left:hover .arrow {
+        display: none; }
+  .panel.right {
+    right: 0;
+    padding: 0;
+    border-left: 2px solid #bc9fd8; }
+  .panel .arrow {
+    color: #bc9fd8;
+    font-size: 1.4em;
+    font-weight: bold;
+    position: relative;
+    top: 50%;
+    right: 0.3em; }
+  .panel .controls {
+    display: none; }
+
+.controls {
+  float: left;
+  clear: left;
+  margin: 1em 0; }
+
+#maze_container {
+  margin: 4em auto 0;
+  width: 30em; }
+  #maze_container .controls {
+    margin: 1.6em auto 0;
+    width: 100%; }
+    #maze_container .controls button {
+      background: #181238;
+      color: #ffbb2a;
+      font-size: 2em;
+      padding: 0.1em 0.3em;
+      border: 2px solid #bc9fd8;
+      border-radius: 0.2em;
+      outline: none;
+      color: #bc9fd8;
+      cursor: pointer; }
+      #maze_container .controls button:hover {
+        border-color: #ffbb2a;
+        color: #ffbb2a; }
+
+#maze {
+  overflow: auto;
+  box-shadow: 0 0 20px 4px #bc9fd8; }
+
+#solutions {
+  clear: left;
+  float: left;
+  overflow: auto;
+  margin: 0;
+  padding: 1em 0; }
+  #solutions li {
+    list-style: none;
+    padding: 0.4em 1em;
+    cursor: default; }
+    #solutions li:hover {
+      background-color: #181238; }

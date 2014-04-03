@@ -3,55 +3,52 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.js"></script>
     <script src="pathfind.js"></script>
-
-    <style>
-      .cell {
-        float: left;
-        width: 1em;
-        height: 1em;
-        background-color: #ccc;
-      }
-      .cell.wall {
-        background-color: black;
-      }
-      .cell.start {
-        background-color: green;
-      }
-      .cell.end {
-        background-color: red;
-      }
-      .cell.path {
-        background-color: blue;
-      }
-      .row {
-        clear: left;
-      }
-      li {
-        outline: 1px solid #333;
-      }
-    </style>
+    <link rel="stylesheet" href='style.css' />
 </head>
 <body ng-app="PathfinderApp">
-    <div ng-controller="MazeCtrl" id="maze">
-        <div>width: {{ maze.grid[0].length }}</div>
-        <div>height: {{ maze.length }}</div>
-        <div ng-repeat="row in maze.grid"
-             class="row">
-          <div ng-repeat="cell in row"
-               ng-mousedown="startPainting(cell, $event)"
-               ng-mouseup="stopPainting()"
-               ng-mouseenter="paint(cell, $event)"
-               ng-click="toggle_wall(cell)"
-               class="cell {{ cell.type }}">
-          </div>
+    <div ng-controller="MazeCtrl">
+        <div class="panel left">
+            <div class="arrow">&#9654;</div>
+            <div class="controls">
+                <div>width: {{ maze.grid[0].length }}</div>
+                <input name="width" type="range" min="4" max="30" value="9">
+
+                <div>height: {{ maze.length }}</div>
+                <input name="height" type="range" min="4" max="30" value="9">
+            </div>
         </div>
-        <button ng-click="submit(maze)">Solve</button>
-        <ul>
-          <li ng-repeat="s in maze.solutions"
-              ng-mouseover="maze.grid = s"
-              ng-mouseleave="maze.grid = original.grid">
-              Path #{{ $index + 1 }} ( {{ s.steps }} steps )</li>
-        </ul>
+
+        <div class="panel right">
+            <ul id="solutions">
+              <li ng-repeat="s in maze.solutions"
+                  ng-mouseover="maze.grid = s"
+                  ng-mouseleave="maze.grid = original.grid">
+                  Path #{{ $index + 1 }} ( {{ s.steps }} steps )</li>
+            </ul>
+        </div>
+
+        <div id="maze_container">
+            <div id="maze">
+                <div ng-repeat="row in maze.grid"
+                     class="row">
+                  <div ng-repeat="cell in row"
+                       ng-mousedown="startPainting(cell, $event)"
+                       ng-mouseup="stopPainting()"
+                       ng-mouseenter="paint(cell, $event)"
+                       ng-click="toggle_wall(cell)"
+                       class="cell {{ cell.type }}"
+                       style="width:  {{ 30 / maze.grid[0].length }}em;
+                              height: {{ 30 / maze.grid[0].length }}em">
+                  </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button ng-click="" class="left">Reset</button>
+                <button ng-click="submit(maze)" class="right">Solve</button>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>

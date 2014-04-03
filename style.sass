@@ -1,0 +1,112 @@
+$violet: #181238
+$lavender: #645F81
+$pink: #BC9FD8
+$morning: #D4C8DA
+$navy: #152349
+$sky: #CAD6F0
+$tangerine: #FFBB2A
+$red: #E03636
+$green: #11CE73
+
+body
+  background-color: $violet
+  font-family: "Helvetica", sans-serif
+
+.left
+  float: left
+
+.right
+  float: right
+
+.cell
+  float: left
+  background-color: $sky
+  &.wall
+    background-color: $navy
+  &.start
+    background-color: $green
+  &.end
+    background-color: $red
+  &.path
+    background-color: $tangerine
+    box-shadow: 0 0 20px $tangerine
+
+.row
+  clear: left
+  float: left
+
+.panel
+  color: $sky
+  position: absolute
+  top: 0
+  background-color: $lavender
+  height: 100%
+  box-shadow: 0 0 20px $morning
+  &.left
+    left: 0
+    width: 0
+    padding: 0 1em
+    border-right: 2px solid $pink
+    &:hover
+      width: auto
+      .controls
+        display: block
+      .arrow
+        display: none
+  &.right
+    right: 0
+    padding: 0
+    border-left: 2px solid $pink
+  .arrow
+    color: $pink
+    font-size: 1.4em
+    font-weight: bold
+    position: relative
+    top: 50%
+    right: 0.3em
+  .controls
+    display: none
+
+
+.controls
+  float: left
+  clear: left
+  margin: 1em 0
+
+#maze_container
+  margin: 4em auto 0
+  width: 30em
+  .controls
+    margin: 1.6em auto 0
+    width: 100%
+    button
+      background: $violet
+      color: $tangerine
+      font-size: 2em
+      padding: 0.1em 0.3em
+      border: 2px solid $pink
+      border-radius: 0.2em
+      outline: none
+      color: $pink
+      cursor: pointer
+      &:hover
+        border-color: $tangerine
+        color: $tangerine
+
+#maze
+  overflow: auto
+  box-shadow: 0 0 20px 4px $pink
+
+#solutions
+  clear: left
+  float: left
+  overflow: auto
+  margin: 0
+  padding: 1em 0
+  li
+    list-style: none
+    padding: 0.4em 1em
+    cursor: default
+    &:hover
+      background-color: $violet
+

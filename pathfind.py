@@ -48,7 +48,7 @@ class Maze(object):
         'E': 'end',
     }
 
-    def __init__(self, pic=small_maze):
+    def __init__(self, pic=large_maze):
         self.solutions = []
 
         grid = self.grid_from_ascii(pic=pic)
