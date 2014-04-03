@@ -1,5 +1,6 @@
 angular.module('PathfinderApp', [])
   .controller('MazeCtrl', function($scope, $http) {
+    $scope.painting = false;
 
     $http.get('/maze').success(function(maze) {
       $scope.maze = maze;
@@ -26,6 +27,32 @@ angular.module('PathfinderApp', [])
       // lame
       var result = _(solution).flatten()
       return _(result).where({ 'type': 'path' });
+    };
+
+    $scope.paint = function(cell, e) {
+      if ($scope.painting) {
+        cell.type = $scope.brush;
+        e.preventDefault();
+      }
+    };
+
+    $scope.startPainting = function(cell, e) {
+      $scope.painting = true;
+      $scope.brush = cell.type;
+      e.preventDefault();
+
+    };
+
+    $scope.stopPainting = function() {
+      $scope.painting = false;
+    };
+
+    $scope.toggle_wall = function(cell) {
+      if (cell.type == 'space') {
+        cell.type = 'wall';
+      } else if (cell.type == 'wall') {
+        cell.type = 'space';
+      }
     };
 
 });

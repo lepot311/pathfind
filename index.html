@@ -38,6 +38,10 @@
         <div ng-repeat="row in maze.grid"
              class="row">
           <div ng-repeat="cell in row"
+               ng-mousedown="startPainting(cell, $event)"
+               ng-mouseup="stopPainting()"
+               ng-mouseenter="paint(cell, $event)"
+               ng-click="toggle_wall(cell)"
                class="cell {{ cell.type }}">
           </div>
         </div>
