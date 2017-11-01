@@ -7,10 +7,10 @@ angular.module('PathfinderApp', [])
       $scope.maze = maze;
     });
 
-    $scope.submit = function(maze) {
-      $http.post('/maze/solve', maze)
+    $scope.submit = function() {
+      $http.post('/maze/solve', $scope.maze)
         .success(function(maze) {
-          $scope.original = _($scope.maze).clone();
+          $scope.original = _(maze).clone();
 
           _(maze.solutions).each(function(s) {
             s.steps = $scope.steps_in_solution(s).length
@@ -42,11 +42,11 @@ angular.module('PathfinderApp', [])
       $scope.painting = true;
       $scope.brush = cell.type;
       e.preventDefault();
-
     };
 
     $scope.stopPainting = function() {
       $scope.painting = false;
+      $scope.submit($scope.maze);
     };
 
     $scope.toggle_wall = function(cell) {
@@ -58,4 +58,3 @@ angular.module('PathfinderApp', [])
     };
 
 });
-

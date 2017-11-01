@@ -1,9 +1,13 @@
-import ipdb
 import json
+import logging
 from flask import Flask, request
 import pathfind
 
 app = Flask(__name__)
+
+
+logging.basicConfig(level=logging.INFO)
+log = logging.getLogger(__name__)
 
 
 class ServerMaze(pathfind.Maze):
@@ -22,8 +26,8 @@ class ServerMaze(pathfind.Maze):
             super().__init__()
 
     def json_to_ascii(self, grid):
-        text = [[ ServerMaze.type_map[cell['type']] for cell in row ]
-                                                    for row in grid ]
+        text = [[ ServerMaze.type_map[cell['type']] for cell in row  ]
+                                                    for row  in grid ]
         output = ''
         for row in text:
             output += ''.join(row) + '\n'
@@ -33,8 +37,8 @@ class ServerMaze(pathfind.Maze):
     @property
     def as_json(self):
         result = {}
-        result['grid'] = [[ { 'type': cell._type } for cell in row ]
-                                                   for row in self.grid ]
+        result['grid'] = [[ { 'type': cell._type } for cell in row       ]
+                                                   for row  in self.grid ]
         solutions = []
 
         # TODO: probably time to start thinking about making grid and solution classes
@@ -58,6 +62,7 @@ class ServerMaze(pathfind.Maze):
 @app.route('/maze')
 def index():
     maze = ServerMaze()
+    log.info(f"Serving maze {maze.sha1[:8]}")
     return maze.as_json
 
 
@@ -66,7 +71,10 @@ def solve():
     grid = json.loads( request.data.decode() )['grid']
 
     maze = ServerMaze(grid=grid)
+    log.info(f"Solving for maze {maze.sha1[:8]}")
+    log.debug(str(maze))
     maze.solve()
+    log.info(f"Serving maze {maze.sha1[:8]}")
 
     return maze.as_json
 

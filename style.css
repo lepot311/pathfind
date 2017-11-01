@@ -1,6 +1,8 @@
 body {
   background-color: #181238;
-  font-family: "Helvetica", sans-serif; }
+  font-family: "Helvetica", sans-serif;
+  color: white;
+  text-align: center; }
 
 .left {
   float: left; }
@@ -10,33 +12,33 @@ body {
 
 .cell {
   float: left;
-  background-color: #cad6f0; }
+  background-color: #CAD6F0; }
   .cell.wall {
     background-color: #152349; }
   .cell.start {
-    background-color: #11ce73; }
+    background-color: #11CE73; }
   .cell.end {
-    background-color: #e03636; }
+    background-color: #E03636; }
   .cell.path {
-    background-color: #ffbb2a;
-    box-shadow: 0 0 20px #ffbb2a; }
+    background-color: #FFBB2A;
+    box-shadow: 0 0 20px #FFBB2A; }
 
 .row {
   clear: left;
   float: left; }
 
 .panel {
-  color: #cad6f0;
+  color: #CAD6F0;
   position: absolute;
   top: 0;
-  background-color: #645f81;
+  background-color: #645F81;
   height: 100%;
-  box-shadow: 0 0 20px #d4c8da; }
+  box-shadow: 0 0 20px #D4C8DA; }
   .panel.left {
     left: 0;
     width: 0;
     padding: 0 1em;
-    border-right: 2px solid #bc9fd8; }
+    border-right: 2px solid #BC9FD8; }
     .panel.left:hover {
       width: auto; }
       .panel.left:hover .controls {
@@ -46,9 +48,9 @@ body {
   .panel.right {
     right: 0;
     padding: 0;
-    border-left: 2px solid #bc9fd8; }
+    border-left: 2px solid #BC9FD8; }
   .panel .arrow {
-    color: #bc9fd8;
+    color: #BC9FD8;
     font-size: 1.4em;
     font-weight: bold;
     position: relative;
@@ -70,21 +72,21 @@ body {
     width: 100%; }
     #maze_container .controls button {
       background: #181238;
-      color: #ffbb2a;
+      color: #FFBB2A;
       font-size: 2em;
       padding: 0.1em 0.3em;
-      border: 2px solid #bc9fd8;
+      border: 2px solid #BC9FD8;
       border-radius: 0.2em;
       outline: none;
-      color: #bc9fd8;
+      color: #BC9FD8;
       cursor: pointer; }
       #maze_container .controls button:hover {
-        border-color: #ffbb2a;
-        color: #ffbb2a; }
+        border-color: #FFBB2A;
+        color: #FFBB2A; }
 
 #maze {
   overflow: auto;
-  box-shadow: 0 0 20px 4px #bc9fd8; }
+  box-shadow: 0 0 20px 4px #BC9FD8; }
 
 #solutions {
   clear: left;
@@ -98,3 +100,5 @@ body {
     cursor: default; }
     #solutions li:hover {
       background-color: #181238; }
+
+/*# sourceMappingURL=style.css.map */

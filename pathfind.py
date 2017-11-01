@@ -1,4 +1,8 @@
+import hashlib
+import itertools
+
 from termcolor import colored
+
 
 small_maze = """
 |||||||||
@@ -40,6 +44,7 @@ large_maze = """
 |||||||||||||||||||||||||
 """
 
+
 class Maze(object):
     ascii_map = {
         ' ': 'space',
@@ -57,6 +62,15 @@ class Maze(object):
         self.grid = [[ Cell(self, (x, y), char)
                 for x, char in enumerate(row)  ]
                 for y, row  in enumerate(grid) ]
+
+    def __str__(self):
+        return ''.join([
+            str(cell) for cell in self.flattened
+        ])
+
+    @property
+    def flattened(self):
+        return itertools.chain(*self.grid)
 
     def grid_from_ascii(self, pic):
         '''
@@ -82,6 +96,12 @@ class Maze(object):
 
     def solve(self):
         self.start.pathfind([])
+
+    @property
+    def sha1(self):
+        h = hashlib.sha1()
+        h.update(str(self).encode('utf-8'))
+        return h.hexdigest()
 
 
 class Cell(object):

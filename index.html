@@ -1,11 +1,22 @@
 <html>
 <head>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.js"></script>
     <script src="pathfind.js"></script>
     <link rel="stylesheet" href='style.css' />
 </head>
 <body ng-app="PathfinderApp">
+    <h3>Instructions:</h3>
+    <p>
+        Click a dark tile and drag to paint a wall.<br>
+        Click a light tile and drag to paint a path.
+    </p>
+    <p>
+        The new maze is sent to the server and solved when you release the mouse.
+    </p>
+    <p>
+    This is a very simple brute force recursive solver and you <i>can break it</i>. It's just a cute demo.
+    </p>
     <div ng-controller="MazeCtrl">
         <div class="panel left">
             <div class="arrow">&#9654;</div>
@@ -43,10 +54,6 @@
                 </div>
             </div>
 
-            <div class="controls">
-                <button ng-click="" class="left">Reset</button>
-                <button ng-click="submit(maze)" class="right">Solve</button>
-            </div>
         </div>
 
     </div>
